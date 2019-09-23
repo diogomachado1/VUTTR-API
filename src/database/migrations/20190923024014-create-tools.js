@@ -24,6 +24,9 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull: true,
       },
+      tags: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -36,6 +39,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('toolss');
+    return queryInterface.dropTable('tools');
   },
 };

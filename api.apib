@@ -1,0 +1,265 @@
+FORMAT: 1A
+HOST: http://localhost:3000
+
+# VUTTR (Very Useful Tools to Remember)
+
+ A aplicação é um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags.
+
+# Group Users
+
+## Usuario [/users]
+
+Um conjunto de rotas com objetivo de gerenciamentos dos usuarios.
+
+### Registrar um usuario [POST]
+
+
++ Request (application/json)
+
+        {
+          "name": "Diogo Machado Marques",
+          "email": "diogomachado_8@hotmail.com",
+          "password": "123456"
+        }
+
++ Response 201 (application/json)
+
+        {
+          "id": 1,
+          "name": "Diogo Machado",
+          "email": "diogo@hotmail.com"
+        }
+
+## Update usuario [PUT /users/{id}]
+
++ Parameters
+      + id: 1 (number)
+
++ Request (application/json)
+
+      + Headers
+
+              authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTY5MjUxMjE2LCJleHAiOjE1Njk4NTYwMTZ9.vfQ5Yxv-7FbYAABs-oxHTLcP09HOBrIcsST_GYJp95I
+      + Body
+
+            {
+              "name": "Diogo Machado Marques",
+              "email": "diogoEdited@hotmail.com",
+              "oldPassword": "1234567",
+              "password": "1234567",
+              "confirmPassword":"1234567"
+            }
+
++ Response 200 (application/json)
+
+        {
+          "id": 3,
+          "name": "Diogo Machado Marques",
+          "email": "diogoEdited@hotmail.com"
+        }
+
+# Group sessions
+
+## Sessao [/sessions]
+
+Rota utilizada para realizar login.
+
+### Criar uma sessão(login) [POST]
+
++ Request (application/json)
+
+        {
+          "email": "diogomachado_8@hotmail.com",
+          "password": "123456"
+        }
+
++ Response 201 (application/json)
+
+        {
+          "user": {
+            "id": 1,
+            "name": "Diogo Machado",
+            "email": "diogo@hotmail.com"
+          },
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTY5MjUxMjE2LCJleHAiOjE1Njk4NTYwMTZ9.vfQ5Yxv-7FbYAABs-oxHTLcP09HOBrIcsST_GYJp95I"
+        }
+
+# Group Tools
+
+## Ferramentas [/tools]
+
+Gerenciamentos das Ferramentas(Tools).
+
+### Buscar todas as ferramentas(Tools) [GET]
++ Request (application/json)
+
+      + Headers
+
+              Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTY5MjUxMjE2LCJleHAiOjE1Njk4NTYwMTZ9.vfQ5Yxv-7FbYAABs-oxHTLcP09HOBrIcsST_GYJp95I
+
+
++ Response 200 (application/json)
+
+        [
+          {
+            "id": 1,
+            "title": "A good Tools",
+            "link": "example.com",
+            "description": "example",
+            "tags": [
+              "Node",
+              "Express"
+            ],
+            "createdAt": "2019-09-23T15:20:54.720Z",
+            "updatedAt": "2019-09-23T15:20:54.720Z",
+            "user_id": 1
+          },
+          {
+            "id": 2,
+            "title": "A good Tools2",
+            "link": "example2.com",
+            "description": "example2",
+            "tags": [
+              "React",
+              "React Native"
+            ],
+            "createdAt": "2019-09-23T16:39:22.933Z",
+            "updatedAt": "2019-09-23T16:39:22.933Z",
+            "user_id": 2
+          }
+        ]
+
+## Buscar ferramentas apartir de uma tag especifica(Tools) [GET /tools{?tag}]
+
++ Parameters
+      + tag: Node (string, optional)
+
++ Request (application/json)
+
+      + Headers
+
+              Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTY5MjUxMjE2LCJleHAiOjE1Njk4NTYwMTZ9.vfQ5Yxv-7FbYAABs-oxHTLcP09HOBrIcsST_GYJp95I
+
+
++ Response 200 (application/json)
+
+        [
+          {
+            "id": 1,
+            "title": "A good Tools",
+            "link": "example.com",
+            "description": "example",
+            "tags": [
+              "Node",
+              "Express"
+            ],
+            "createdAt": "2019-09-23T15:20:54.720Z",
+            "updatedAt": "2019-09-23T15:20:54.720Z",
+            "user_id": 1
+          },
+          {
+            "id": 3,
+            "title": "A good Tools3",
+            "link": "example3.com",
+            "description": "example3",
+            "tags": [
+              "Node",
+              "Express"
+            ],
+            "createdAt": "2019-09-23T15:20:54.720Z",
+            "updatedAt": "2019-09-23T15:20:54.720Z",
+            "user_id": 1
+          }
+        ]
+
+### Criar uma Ferramenta(Tool) [POST]
+
+
++ Request (application/json)
+
+      + Headers
+
+              Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTY5MjUxMjE2LCJleHAiOjE1Njk4NTYwMTZ9.vfQ5Yxv-7FbYAABs-oxHTLcP09HOBrIcsST_GYJp95I
+
+      + Body
+
+            {
+              "title": "A good Tools",
+              "link":"example.com",
+              "description":"example",
+              "tags":  [
+                "Node",
+                "Express"
+              ]
+            }
+
++ Response 201 (application/json)
+
+        {
+          "id": 1,
+          "title": "A good Tools",
+          "link": "example.com",
+          "description": "example",
+          "tags": [
+            "Node",
+            "Express"
+          ],
+          "user_id": 1,
+          "updatedAt": "2019-09-23T15:20:54.720Z",
+          "createdAt": "2019-09-23T15:20:54.720Z"
+        }
+
+## Update uma ferramenta [PUT /tools/{id}]
+
++ Parameters
+      + id: 1 (number)
+
++ Request (application/json)
+
+      + Headers
+
+              Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTY5MjUxMjE2LCJleHAiOjE1Njk4NTYwMTZ9.vfQ5Yxv-7FbYAABs-oxHTLcP09HOBrIcsST_GYJp95I
+      + Body
+
+            {
+              "title": "A good Tools edited",
+              "link":"exampleEdited.com",
+              "description":"example edited",
+              "tags":  [
+                "NodeEdited",
+                "Express",
+                "edited"
+              ]
+            }
+
++ Response 200 (application/json)
+
+        {
+          "id": 1,
+          "title": "A good Tools edited",
+          "link":"exampleEdited.com",
+          "description":"example edited",
+          "tags":  [
+            "NodeEdited",
+            "Express",
+            "edited"
+          ],
+          "user_id": 1,
+          "updatedAt": "2019-09-23T15:20:57.720Z",
+          "createdAt": "2019-09-23T15:20:54.720Z"
+        }
+
+## Deletar uma ferramenta [DELETE /tools/{id}]
+
++ Parameters
+      + id: 1 (number)
+
++ Request (application/json)
+
+      + Headers
+
+              Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTY5MjUxMjE2LCJleHAiOjE1Njk4NTYwMTZ9.vfQ5Yxv-7FbYAABs-oxHTLcP09HOBrIcsST_GYJp95I
+
+
++ Response 204 (application/json)
+
