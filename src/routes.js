@@ -7,14 +7,15 @@ import ToolController from './app/controllers/ToolController';
 
 const routes = new Router();
 
-routes.post('/sessions', SessionController.store);
-
 routes.post('/users', UserController.store);
+
+routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
 routes.put('/users', UserController.update);
 
 routes.get('/tools', ToolController.index);
 routes.post('/tools', ToolController.store);
+routes.put('/tools/:id', ToolController.update);
 routes.delete('/tools/:id', ToolController.delete);
 
 export default routes;

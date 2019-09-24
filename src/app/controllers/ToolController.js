@@ -3,12 +3,13 @@ import { Op } from 'sequelize';
 
 import Tool from '../models/Tool';
 
-class MeetupController {
+class ToolsController {
   async index(req, res) {
     const {
       userId: user_id,
       query: { tag },
     } = req;
+
     const tools = await Tool.findAll(
       tag
         ? {
@@ -25,7 +26,7 @@ class MeetupController {
       title: Yup.string().required(),
       description: Yup.string(),
       link: Yup.string(),
-      tag: Yup.array(Yup.string()),
+      tags: Yup.array().of(Yup.string()),
     });
 
     const { userId: user_id } = req;
@@ -49,14 +50,12 @@ class MeetupController {
       title: Yup.string().required(),
       description: Yup.string(),
       link: Yup.string(),
-      tag: Yup.array(Yup.string()),
+      tags: Yup.array(Yup.string()),
     });
 
     const {
       userId: user_id,
-      req: {
-        params: { id },
-      },
+      params: { id },
     } = req;
 
     try {
@@ -65,15 +64,13 @@ class MeetupController {
       return res.status(400).json({ error: error.errors[0] });
     }
 
-    const tool = await Tool.update(
-      {
-        ...req.body,
-        user_id,
-      },
-      { where: { id } }
-    );
+    const tool = await Tool.findByPk(id, { where: { user_id } });
+    if (!tool) {
+      return res.status(404).send();
+    }
+    const toolUpdated = await tool.update(req.body);
 
-    return res.status(201).json(tool);
+    return res.status(201).json(toolUpdated);
   }
 
   async delete(req, res) {
@@ -94,4 +91,4 @@ class MeetupController {
   }
 }
 
-export default new MeetupController();
+export default new ToolsController();
