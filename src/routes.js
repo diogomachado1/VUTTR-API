@@ -8,6 +8,7 @@ import ToolController from './app/controllers/ToolController';
 const routes = new Router();
 
 routes.post('/users', UserController.store);
+routes.get('/', (req, res) => res.send('ok'));
 
 routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
