@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   backend:
+    # or image: diogo8machado/vuttr
     build: .
     ports:
       - 3000:3000
