@@ -11,7 +11,7 @@ import ToolController from './app/controllers/ToolController';
 const routes = new Router();
 
 routes.post('/users', UserController.store);
-routes.get('/', (req, res) => res.send('ok'));
+routes.get('/', (req, res) => res.send('ok Test'));
 
 if (process.env.NODE_ENV === 'production') {
   const bruteStore = new BruteRedis({
