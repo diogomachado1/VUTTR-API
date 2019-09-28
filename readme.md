@@ -45,6 +45,7 @@ A aplicação estará rodando na porta 3000, caso esteja rodando o frontend lebr
 #### Pre-requisito
 
 - Estar rodando banco de dados postgres.
+- Estar rodando banco de dados redis.
 
 #### Instalando as dependencias
 
@@ -58,7 +59,7 @@ npm install
 
 #### Conectando ao Banco de dados
 
-Utilizando como exemplo o `.env.example`, crie um `.env` com as variáveis para conexão com o banco de dados e a chave do JWT.
+Utilizando como exemplo o `.env.example`, crie um `.env` com as variáveis para as conexões com os bancos de dados e a chave do JWT.
 
 .env.exemple:
 
@@ -69,6 +70,11 @@ DB_HOST=
 DB_USER=
 DB_PASS=
 DB_NAME=
+
+REDIS_HOST=
+REDIS_PORT=
+
+SENTRY_DSN=
 ```
 
 #### Start
@@ -85,9 +91,9 @@ npm run dev
 
 ### Testes
 
-Para rodar os testes da aplicação, primeiro precisa configurar o `.env.test` utilizando o `.env.example` como exemplo.
+Para rodar os testes da aplicação, primeiro precisa configurar o `.env.test` utilizando o `.env.example` como exemplo e estar com Postgrees e Redis rodando.
 
-obs: Recomendo criar outro database no postgress para os testes.
+obs: Recomendo criar outro database no Postgress para os testes.
 
 Depois de configurar o `.env` e banco, basta usar o comando:
 
