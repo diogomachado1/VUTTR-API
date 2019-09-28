@@ -12,8 +12,12 @@ services:
       DB_USER: postgres
       DB_PASS: docker
       DB_NAME: VUTTR
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
     depends_on:
       - db
+      - redis
   db:
     image: postgres
     environment:
@@ -22,6 +26,8 @@ services:
       POSTGRES_DB: VUTTR
     volumes:
       - pg_data_VUTTR:/var/lib/postgresql/data
+  redis:
+    image: redis
 
 volumes:
   pg_data_VUTTR:
