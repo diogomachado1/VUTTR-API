@@ -21,6 +21,9 @@ describe('Tools', () => {
   beforeEach(async () => {
     await truncate();
   });
+  afterAll(async () => {
+    await new Promise(resolve => setTimeout(() => resolve(), 500)); // avoid jest open handle error
+  });
 
   it('should return tools', async () => {
     const { tool, token } = await createTools();

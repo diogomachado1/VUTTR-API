@@ -11,6 +11,9 @@ describe('User Create', () => {
   beforeEach(async () => {
     await truncate();
   });
+  afterAll(async () => {
+    await new Promise(resolve => setTimeout(() => resolve(), 500)); // avoid jest open handle error
+  });
 
   it('should be able to register', async () => {
     const user = await factory.attrs('User');

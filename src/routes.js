@@ -10,17 +10,20 @@ import ToolController from './app/controllers/ToolController';
 
 const routes = new Router();
 
-const bruteStore = new BruteRedis({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-});
-
-const bruteForce = new Brute(bruteStore);
-
 routes.post('/users', UserController.store);
 routes.get('/', (req, res) => res.send('ok'));
 
-routes.post('/sessions', bruteForce.prevent, SessionController.store);
+if (process.env.NODE_ENV === 'production') {
+  const bruteStore = new BruteRedis({
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+  });
+
+  const bruteForce = new Brute(bruteStore).prevent;
+  routes.post('/sessions', bruteForce, SessionController.store);
+} else {
+  routes.post('/sessions', SessionController.store);
+}
 routes.use(authMiddleware);
 routes.put('/users', UserController.update);
 
